@@ -16,7 +16,10 @@
   <!-- 文章内容 -->
   <block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="index" wx:key="index">
   <!-- ... 相当于把单个对象内容给展开了 -->
+  <view catch:tap="onPostTap" data-PostId="{{item.postId}}">
     <template is="postItem" data="{{...item}}"></template>
+  </view>
+    
   </block>
 
 
