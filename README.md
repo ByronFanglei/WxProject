@@ -9,3 +9,16 @@
 ```
 2.css样式布局尽量使用flex布局，很有效
 3.确保setData内传入的一定是一个对象！！！
+4.网易云媒体流获取（可能会有时效问题）---以《处暑》为例子
+（1）打开网易云找到要获取的音乐，右击复制链接
+（https://music.163.com/song?id=1385858356&userid=439687576）
+（2）按照这个格式进行裁剪‘
+（http://music.163.com/song/media/outer/url?id=ID数字.mp3）
+（3）最终地址为：
+（https://music.163.com/song/media/outer/url?id=1385858356.mp3）
+
+
+
+
+## 存在BUG
+1.开始音乐后不能暂停，暂停一闪而过（编辑器与真机调试都正常，ios13.3出现BUG）

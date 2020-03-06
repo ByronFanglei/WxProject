@@ -1,9 +1,13 @@
 var postsData = require('../../../data/posts-data.js')
-
+var app = getApp()
+// 获取音乐api
+const backgroundAudioManager = wx.getBackgroundAudioManager();
 Page({
-  data: {},
+  data: {
+    isPlayMusic: false
+  },
   onLoad: function(options) {
-    var postId = options.id
+    var postId = options.id;
     this.setData({
       collectedId: postId
     })
@@ -30,6 +34,12 @@ Page({
       // 设置缓存
       wx.setStorageSync('post_collected', postsCollected);
     }
+    if (app.globalData.g_isPlayMusic && app.globalData.g_musicId === postId) {
+      this.setData({
+        isPlayMusic: true
+      })
+    }
+    this.setMusic()
   },
   onCollectedTap: function(event) {
     // 获取缓存数据
@@ -40,9 +50,8 @@ Page({
     postsCollected[this.data.collectedId] = postCollected;
     this.showToast(postsCollected, postCollected);
     // this.showModal(postsCollected, postCollected);
-
-
   },
+  // 分享函数
   onShareTap: function() {
     wx.showActionSheet({
       itemList: [
@@ -88,6 +97,58 @@ Page({
         }
       }
     })
+  },
+
+  // 音乐控制
+  onMusicTap: function(event) {
+    var that = this;
+    // 获取对应页面id
+    var musicId = this.data.collectedId;
+    // 获取对应id对象music内容
+    var postData = postsData.postList[musicId].music;
+    backgroundAudioManager.title = postData.title;
+    backgroundAudioManager.coverImgUrl = postData.coverImg;
+    backgroundAudioManager.src = postData.url;
+    // 获取音乐是否被播放
+    var isPlayMusic = this.data.isPlayMusic;
+    if (isPlayMusic) {
+      // 暂停播放
+      backgroundAudioManager.pause()
+      this.setData({
+        isPlayMusic: false
+      })
+      console.log('暂停了' + this.data.isPlayMusic)
+    } else {
+      // 开始播放
+      backgroundAudioManager.play()
+      this.setData({
+        isPlayMusic: true
+      })
+      console.log('开始了' + this.data.isPlayMusic)
+    }
+  },
+
+  // 监听音乐
+  setMusic: function() {
+    // 监听音乐播放
+    var that = this;
+    backgroundAudioManager.onPlay(function() {
+      that.setData({
+        isPlayMusic: true
+      })
+      app.globalData.g_isPlayMusic = true;
+      app.globalData.g_musicId = that.data.collectedId;
+      console.log(app.globalData.g_isPlayMusic + '--' + that.data.isPlayMusic);
+    });
+    // 监听音乐暂停
+    backgroundAudioManager.onPause(function() {
+      that.setData({
+        isPlayMusic: false
+      })
+      app.globalData.g_isPlayMusic = false;
+      app.globalData.g_musicId = null
+      console.log(app.globalData.g_isPlayMusic + '--' + that.data.isPlayMusic);
+    });
   }
 
 })
