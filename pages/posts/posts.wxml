@@ -2,25 +2,20 @@
 
 <view>
   <!-- 轮播图 -->
-  <swiper indicator-dots="true" indicator-active-color="#fff" autoplay="true" previous-margin="30rpx" circular="true" vertical="{{false}}">
-    <swiper-item>
-      <image src="/images/wx.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image src="/images/vr.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image src="/images/iqiyi.png"></image>
-    </swiper-item>
+  <swiper indicator-dots="true" indicator-active-color="#fff" autoplay="true" previous-margin="30rpx" circular="true" vertical="{{false}}" catch:tap="onSwiperTap">
+    <block wx:for="{{posts_key}}" wx:for-item="item" wx:key="index">
+      <swiper-item>
+        <image src="{{item.imgSrc}}" data-PostId="{{item.postId}}"></image>
+      </swiper-item>
+    </block>
   </swiper>
   <!-- 文章内容 -->
   <block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="index" wx:key="index">
-  <!-- ... 相当于把单个对象内容给展开了 -->
-  <view catch:tap="onPostTap" data-PostId="{{item.postId}}">
-    <template is="postItem" data="{{...item}}"></template>
-  </view>
-    
+    <!-- ... 相当于把单个对象内容给展开了 -->
+    <view catch:tap="onPostTap" data-PostId="{{item.postId}}">
+      <template is="postItem" data="{{...item,viewsNumber}}"></template>
+    </view>
   </block>
-
+  
 
 </view>

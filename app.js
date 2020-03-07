@@ -1,7 +1,8 @@
 App({
   globalData:{
     g_isPlayMusic: false,
-    g_musicId: null
+    g_musicId: null,
+    doubanBase: 'https://api.douban.com/v2/movie'
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

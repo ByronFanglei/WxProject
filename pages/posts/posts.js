@@ -1,19 +1,47 @@
 var postsData = require('../../data/posts-data.js')
 Page({
-//处理交互：1产生时间，2捕捉事件（回调函数），3处理事件
+//处理交互：1产生事件，2捕捉事件（回调函数），3处理事件
   /**
    * 页面的初始数据
    */
   data: {
 
   },
-
+  // 列表跳转
   onPostTap:function(event){
-    var postId = event.currentTarget.dataset.postid
+    let i = 0;
+    var postId = event.currentTarget.dataset.postid;
+    this.setData({
+      viewNumId: postId
+    })
     wx.navigateTo({
       url: 'post-detail/post-detail?id=' + postId,
       success: function(res) {
+        if (viewsNumber[postId]){
+          viewsNumber[postId]++;
+        }else{
+          viewsNumber[postId] = i;
+          viewsNumber[postId]++;
+        }
+        wx.setStorageSync('View_Number', viewsNumber);
       }
+    })
+    // 获取查看缓存
+    var viewsNumber = wx.getStorageSync('View_Number')
+    if (viewsNumber){
+      var viewNumber = viewsNumber[postId];
+    }else{
+      var viewsNumber = {}
+      viewsNumber[postId] = 0;
+      wx.setStorageSync('View_Number', viewsNumber)
+    }
+  },
+  // 轮播图片跳转
+  onSwiperTap:function(event){
+    var postId = event.target.dataset.postid;
+    wx/wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId,
+      success: function(res) {},
     })
   },
   /**
@@ -36,7 +64,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    // 每次展示页面获取view缓存数据
+    var viewsNumber = wx.getStorageSync('View_Number');
+    this.setData({
+      viewsNumber
+    })
   },
 
   /**

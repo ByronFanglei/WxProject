@@ -11,7 +11,7 @@
       <image src="/images/icon/chat.png" class="post-like-image"></image>
       <text class="post-like-font">{{collection}}</text>
       <image src="/images/icon/view.png" class="post-like-image"></image>
-      <text class="post-like-font">{{reading}}</text>
+      <text class="post-like-font">{{viewsNumber[postId]}}</text>
     </view>
   </view>
 </template>

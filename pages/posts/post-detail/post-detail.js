@@ -40,6 +40,7 @@ Page({
       })
     }
     this.setMusic()
+
   },
   onCollectedTap: function(event) {
     // 获取缓存数据

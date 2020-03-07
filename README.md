@@ -16,6 +16,20 @@
 （http://music.163.com/song/media/outer/url?id=ID数字.mp3）
 （3）最终地址为：
 （https://music.163.com/song/media/outer/url?id=1385858356.mp3）
+5.template可以传递多个参数
+```HTML
+// ...相当于把单个对象展开
+<template is="postItem" data="{{...item,viewsNumber}}"></template>
+```
+6.豆瓣API使用
+接口：(https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b)
+获取热映：in_theaters
+获取电影Top250：top250
+获取即将上映：coming_soon
+参数：
+（1）start：数据项开始
+（2）count: 单页条数
+（3）city：城市
 
 
 
