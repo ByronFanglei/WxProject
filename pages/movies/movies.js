@@ -1,6 +1,10 @@
+var utils = require('../../utils/util.js'); 
 var app = getApp()
 Page({
   data: {
+    inTheaters:{},
+    top250:{},
+    comingSoon:{}
   },
   onLoad: function (options) {
     var inTheatersUrl = '/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&start=0&count=3';
@@ -9,6 +13,7 @@ Page({
     this.getMoviesListDta(inTheatersUrl, "inTheaters");
     this.getMoviesListDta(top250Url, "top250");
     this.getMoviesListDta(comingSoonUrl, "comingSoon");
+
   },
   // 获取豆瓣数据函数
   getMoviesListDta: function (url, settedKey){
@@ -20,15 +25,17 @@ Page({
       },
       success: function (res) {
         var moviesDouban = res.data.subjects;
-        that.getprocessDoubanData(moviesDouban, settedKey)
+        var showTitle = res.data.title;
+        that.getprocessDoubanData(moviesDouban, settedKey, showTitle)
+        // console.log(res)
       },
       fail: function () {
         console.log("可能断网了哈！")
       }
     })
   },
-  // 
-  getprocessDoubanData: function (moviesDouban, settedKey){
+  // 获取需要的豆瓣数据并组成对象
+  getprocessDoubanData: function (moviesDouban, settedKey, showTitle){
     var movies = [];
     // 循环获取电影数据
     for (var idx in moviesDouban){
@@ -42,6 +49,7 @@ Page({
       // 存储单个数据
       var temp = {
         title: title,
+        stars: utils.getMoviesStars(data.rating.stars),
         average: data.rating.average,
         coverageUrl: data.images.large,
         movieId: data.id
@@ -51,8 +59,9 @@ Page({
     // 设置动态属性***
     var readyData = {};
     readyData[settedKey] = {
-      movies
+      movies,
+      showTitle
     }
-    this.setData(readyData)
+    this.setData(readyData);
   }
 })

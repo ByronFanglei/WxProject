@@ -17,3 +17,21 @@ const formatNumber = n => {
 module.exports = {
   formatTime: formatTime
 }
+
+// 判断评分星星函数
+function getMoviesStars(stars){
+  var num = stars.toString().substring(0,1);
+  var starArr = [];
+  for(var i=1;i<=5;i++){
+    if(num>=i){
+      starArr.push(1)
+    }else{
+      starArr.push(0)
+    }
+  }
+  return starArr;
+}
+
+module.exports = {
+  getMoviesStars: getMoviesStars
+}
