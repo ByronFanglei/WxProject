@@ -15,6 +15,7 @@ page{
 }
 .center-text{
   margin: 100rpx 0;
+  font-size:38rpx;
 }
 .button-text{
   width: 300rpx;
@@ -24,5 +25,5 @@ page{
   margin-top: 150rpx;
 }
 .button-font{
-  font-size:30rpx;
+  font-size:38rpx;
 }

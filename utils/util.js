@@ -19,7 +19,7 @@ module.exports = {
 }
 
 // 判断评分星星函数
-function getMoviesStars(stars){
+function getMoviesStars(stars) {
   var num = stars.toString().substring(0,1);
   var starArr = [];
   for(var i=1;i<=5;i++){
@@ -32,7 +32,7 @@ function getMoviesStars(stars){
   return starArr;
 }
 // httpq请求函数
-function http(dataUrl, callBack){
+function http(dataUrl, callBack) {
   wx.request({
     url: dataUrl,
     header: {
@@ -46,8 +46,29 @@ function http(dataUrl, callBack){
     }
   })
 }
-
+// 演员名字拼接函数
+function getCastsName(casts) {
+  var castsname = "";
+  for (var idx in casts){
+    castsname = castsname + casts[idx].name + '/'
+  }
+  return castsname.substring(0, castsname.length-2);
+}
+// 演员图片拼接函数
+function getCastsImg(casts) {
+  var castsimg = [];
+  for (var idx in casts){
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsimg.push(cast);
+  }
+  return castsimg;
+}
 module.exports = {
   getMoviesStars: getMoviesStars,
-  http: http
+  http: http,
+  getCastsName: getCastsName,
+  getCastsImg: getCastsImg
 }

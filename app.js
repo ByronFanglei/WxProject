@@ -2,7 +2,10 @@ App({
   globalData:{
     g_isPlayMusic: false,
     g_musicId: null,
-    doubanBase: 'https://api.douban.com/v2/movie'
+    doubanBase: 'https://api.douban.com/v2/movie',
+    doubanApiKey: '?apikey=0b2bdeda43b5688921839c8ecb20399b'
+    //备用Apikey：'?apikey=0df993c66c0c636e29ecbb5344252a4a'
+    //备用豆瓣：'https://douban-api.uieee.com'
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

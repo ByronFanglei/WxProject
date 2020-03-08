@@ -3,10 +3,10 @@ var utils = require('../../../utils/util.js');
 
 Page({
   data: {
-    movies:{},
+    movies: {},
     totalNum: 0,
     isEmpty: true,
-    totalMovies:{},
+    totalMovies: {},
     setTime: false
   },
   onLoad: function(options) {
@@ -33,7 +33,7 @@ Page({
     })
   },
   // 获取更多电影数据
-  getMoviesListDta: function (data){
+  getMoviesListDta: function(data) {
     var moviesDouban = data.subjects;
     var movies = [];
     // 循环获取电影数据
@@ -58,9 +58,9 @@ Page({
     // 叠加数据
     var totalMovies = {};
     // 若isEmpty为false,证明需要叠加数据
-    if (!this.data.isEmpty){
+    if (!this.data.isEmpty) {
       totalMovies = this.data.movies.concat(movies);
-    }else{
+    } else {
       // 若isEmpty为true, 赋值当前movies值
       totalMovies = movies;
       this.data.isEmpty = false;
@@ -78,20 +78,26 @@ Page({
   //   utils.http(nextUrl, this.getMoviesListDta);
   //   wx.showNavigationBarLoading()
   // },
-  onReachBottom: function (event){
+  onReachBottom: function(event) {
     var nextUrl = this.data.dataUrl + '&start=' + this.data.totalNum + '&count=20';
     utils.http(nextUrl, this.getMoviesListDta);
     wx.showNavigationBarLoading()
   },
   // 下滑函数
-  onPullDownRefresh: function (event){
+  onPullDownRefresh: function(event) {
     var nextUrl = this.data.dataUrl + '&start=0&count=20';
     utils.http(nextUrl, this.getMoviesListDta);
     this.data.movies = {};
     this.data.isEmpty = true;
+    this.data.totalNum = 0;
     wx.showNavigationBarLoading()
   },
-
+  onMoreTapDetail: function(event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: '../more-detail/more-detail?id=' + movieId,
+    })
+  },
 
 
   // 动态展示title
