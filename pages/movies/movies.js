@@ -63,5 +63,12 @@ Page({
       showTitle
     }
     this.setData(readyData);
+  },
+  // 跳转更多电影页面
+  onMoreTap: function(event){
+    var showtitle = event.currentTarget.dataset.showtitle;
+    wx.navigateTo({
+      url: 'more-movie/more-movie?showtitle=' + showtitle,
+    })
   }
 })

@@ -5,18 +5,15 @@
     <view class="inner-container">
       <view class="movie-head">
         <text class="slogan">{{showTitle}}</text>
-        <view class="more">
+        <view class="more" catch:tap="onMoreTap" data-showtitle="{{showTitle}}">
           <text class="more-text">更多</text>
           <image class="more-img" src="/images/icon/arrow-right.png"></image>
         </view>
       </view>
-
       <view class="movies-container">
-      <block wx:for="{{movies}}" wx:for-item="movie" wx:key="index">
-      <template is="movieTemplate" data="{{...movie}}" />
-      </block>
-        
-
+        <block wx:for="{{movies}}" wx:for-item="movie" wx:key="index">
+          <template is="movieTemplate" data="{{...movie}}" />
+        </block>
       </view>
     </view>
   </view>

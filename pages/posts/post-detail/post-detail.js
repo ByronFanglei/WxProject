@@ -138,6 +138,7 @@ Page({
         isPlayMusic: true
       })
       app.globalData.g_isPlayMusic = true;
+      // 获取对应音乐id
       app.globalData.g_musicId = that.data.collectedId;
       console.log(app.globalData.g_isPlayMusic + '--' + that.data.isPlayMusic);
     });
@@ -147,9 +148,19 @@ Page({
         isPlayMusic: false
       })
       app.globalData.g_isPlayMusic = false;
-      app.globalData.g_musicId = null
+      app.globalData.g_musicId = null;
       console.log(app.globalData.g_isPlayMusic + '--' + that.data.isPlayMusic);
     });
-  }
+    backgroundAudioManager.onEnded(function() {
+      that.setData({
+        isPlayMusic: false
+      })
+      app.globalData.g_isPlayMusic = false;
+      app.globalData.g_musicId = null;
+      console.log("音乐停止了")
+    })
+  },
+  // 监听音乐停止
+
 
 })

@@ -31,7 +31,23 @@ function getMoviesStars(stars){
   }
   return starArr;
 }
+// httpq请求函数
+function http(dataUrl, callBack){
+  wx.request({
+    url: dataUrl,
+    header: {
+      "content-type": " "
+    },
+    success: function(res){
+      callBack(res.data)
+    },
+    fail: function(error){
+      console.log("貌似没网啦！")
+    }
+  })
+}
 
 module.exports = {
-  getMoviesStars: getMoviesStars
+  getMoviesStars: getMoviesStars,
+  http: http
 }
