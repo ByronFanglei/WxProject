@@ -3,7 +3,7 @@
 
 <view class="search">
   <icon class="search-img" type="search" size="20" color="#ff6700"></icon>
-  <input class="search-input" placeholder="惊奇队长" bindfocus="onBindFocus" bindconfirm="onBindFirm"></input>
+  <input class="search-input" placeholder="API无法调用" bindfocus="onBindFocus" bindconfirm="onBindFirm"></input>
   <icon class="search-img" type="cancel" size="20" color="#ff6700" catch:tap="onCancelTap" wx:if="{{searchContent}}"></icon>
 </view>
 
